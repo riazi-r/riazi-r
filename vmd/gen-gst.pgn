@@ -1,0 +1,40 @@
+package require psfgen
+resetpsf
+
+topology top_all27_prot_lipid_gsh.inp
+
+pdbalias residue HOH TIP3
+pdbalias residue HIS HSE
+pdbalias atom ILE CD1 CD
+pdbalias atom TIP3 O OH2
+pdbalias atom LEU CD1 CD2
+pdbalias atom LEU CD2 CD1
+
+segment A {pdb gst-a.pdb}
+segment B {pdb gst-b.pdb}
+
+segment GSHA {
+first none
+pdb gsh-a.pdb
+}
+patch GLNK GSHA:1 GSHA:2
+
+segment GSHB {
+first none
+pdb gsh-b.pdb
+}
+patch GLNK GSHB:1 GSHB:2
+
+segment W {
+pdb water.pdb
+auto none}
+
+coordpdb gst-a.pdb A
+coordpdb gst-b.pdb B
+coordpdb gsh-a.pdb GSHA
+coordpdb gsh-b.pdb GSHB
+coordpdb water.pdb W
+
+guesscoord
+writepdb gst.pdb
+writepsf gst.psf
