@@ -1,4 +1,5 @@
-#mol new boxedsoln.gro
+set tcl_precision 3
+mol new boxedsoln.gro
 set left [atomselect top "index 0 to 5917"]
 set right [atomselect top "index 5918 to 11835"]
 set com [measure center $left weight mass]
@@ -32,3 +33,13 @@ set dist [vecdist $com $com2]
 puts "com distance: $dist" 
 set dir [vecsub $com2 $com]
 puts "direction vector : $dir"
+
+set minmax [measure minmax [atomselect top all]]
+set xbox [expr [lindex [lindex $minmax 1] 0]-[lindex [lindex $minmax 0] 0]]
+set ybox [expr [lindex [lindex $minmax 1] 1]-[lindex [lindex $minmax 0] 1]]
+set zbox [expr [lindex [lindex $minmax 1] 2]-[lindex [lindex $minmax 0] 2]]
+puts "minmax coordinates: $minmax"
+puts "box dimension without padding: X=$xbox Y=$ybox Z=$zbox"
+
+set center [molinfo top get center]
+puts "center coordinates: $center"
