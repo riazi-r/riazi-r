@@ -26,16 +26,31 @@ foreach coord [$right get {x y z}] index [$right get index] {
   set centeratom2 $index
   }
   }
-  
-#mol selection {index $centeratom1 $centeratom2}
-#mol color ColorID 1
-#mol rep VDW 4
-#mol addrep top 
+
+set molid [molinfo top]
+mol delrep 0 $molid
+mol selection "not water and not protein"
+mol color name
+mol rep cpk 
+mol addrep top
+
+mol selection "protein"
+mol color name
+mol rep NewCartoon
+mol addrep top
+
+mol selection "index $centeratom_down $centeratom_up"
+mol color ColorID 1
+mol rep VDW 4
+mol addrep top 
+
+mol selection {index $centeratom_up} 
+mol color ColorID 1
 
 set centeratom1 [expr ($centeratom1+1)]
-puts "centeratom_left: $centeratom1"
+puts "index of centeratom_left in gro/pdb file: $centeratom1"
 set centeratom2 [expr ($centeratom2+1)]
-puts "centeratom_right: $centeratom2"
+puts "index of centeratom_right in gro/pdb file: $centeratom2"
 
 
 set dist [vecdist $com $com2]
