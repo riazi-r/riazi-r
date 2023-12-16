@@ -1,0 +1,11 @@
+1 AGLCNA
+2 - 14A: AGLCNA
+3 - - 14B: BMAN
+4 - - - 13A: AMAN
+5 - - - - 12A: AGLCNA
+6 - - - - - 14A: AGAL
+7 - - - - - - 26A: ANE5AC
+8 - - - 16A: AMAN
+9 - - - - 12A: AGLCNA
+10 - - - - - 14B: BGAL
+11 - - - - - - 26A: ANE5AC
