@@ -1,0 +1,7 @@
+set sym [atomselect top "segname PROM and resid 17 to 132 or segname PRON and resid 15 to 165 or segname PROO and resid 1 to 107 or segname PROP and resid 17 to 132 or segname PROQ and resid 15 to 165 or segname PROR and resid 1 to 107 or segname PROA and resid 133 to 193 or segname PROB and resid 166 to 461 or segname PROC and resid 108 to 411 or segname PROJ and resid 133 to 193 or segname PROK and resid 166 to 461 or segname PROL and resid 108 to 411 or segname CARA or segname CARG or segname CARJ or segname CARL"]
+
+or PROJ and resid 133 to 193 or segname PROK and resid 166 to 461 or segname PROL and resid 108 to 411 
+
+set sym [atomselect top "segname PROM and resid 17 to 132 or segname PRON and resid 15 to 165 or segname PROO and resid 1 to 107 or segname PROP and resid 17 to 132 or segname PROQ and resid 15 to 165 or segname PROR and resid 1 to 107 or segname PROA and resid 133 to 193 or segname PROB and resid 166 to 461 or segname PROC and resid 108 to 411 or segname PROJ and resid 133 to 193 or segname PROK and resid 166 to 461 or segname PROL and resid 108 to 411 or segname CARA CARG CARJ CARL"]
+
+set sym [atomselect top "segname PROM and resid 17 to 132 or PRON and resid 15 to 165 or PROO and resid 1 to 107 or PROP and resid 17 to 132 or PROQ and resid 15 to 165 or PROR and resid 1 to 107 or PROA and resid 133 to 193 or PROB and resid 166 to 461 or PROC and resid 108 to 411 or PROJ and resid 133 to 193 or PROK and resid 166 to 461 or PROL and resid 108 to 411 or CARA CARG CARJ CARL"]
