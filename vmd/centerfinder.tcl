@@ -64,3 +64,8 @@ puts "box dimension without padding: X=$xbox Y=$ybox Z=$zbox"
 
 set center [molinfo top get center]
 puts "center coordinates: $center"
+
+set matrix [transvecinv $dir]
+set all [atomselect top all]
+$all move $matrix
+$all writegro solute.gro
