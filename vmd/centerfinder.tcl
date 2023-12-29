@@ -50,9 +50,9 @@ set centeratom2 [expr ($centeratom2+1)]
 puts "index of centeratom_right in gro/pdb file: $centeratom2"
 
 
-set dist [vecdist $com $com2]
+set dist [vecdist $com2 $com]
 puts "COM distance: $dist" 
-set dir [vecsub $com2 $com]
+set dir [vecnorm [vecsub $com2 $com]]
 puts "direction vector : $dir"
 
 set minmax [measure minmax [atomselect top all]]
