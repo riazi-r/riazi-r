@@ -39,7 +39,7 @@ mol color name
 mol rep NewCartoon
 mol addrep top
 
-mol selection "index $centeratom_down $centeratom_up"
+mol selection "index $centeratom1 $centeratom2"
 mol color ColorID 1
 mol rep VDW 4
 mol addrep top 
