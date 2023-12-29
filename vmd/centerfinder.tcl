@@ -68,4 +68,4 @@ puts "center coordinates: $center"
 set matrix [transvecinv $dir]
 set all [atomselect top all]
 $all move $matrix
-$all writegro solute.gro
+$all writegro solute-rotate.gro
