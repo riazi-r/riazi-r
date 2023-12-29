@@ -1,5 +1,5 @@
 set tcl_precision 3
-mol new boxedsoln.gro
+#mol new boxedsoln.gro
 set left [atomselect top "segid PROA to PROC CARA or index 0 to 5917"]
 set right [atomselect top "segid PROJ to PROL CARB or index 5918 to 11835"]
 set com [measure center $left weight mass]
@@ -43,9 +43,6 @@ mol selection "index $centeratom_down $centeratom_up"
 mol color ColorID 1
 mol rep VDW 4
 mol addrep top 
-
-mol selection {index $centeratom_up} 
-mol color ColorID 1
 
 set centeratom1 [expr ($centeratom1+1)]
 puts "index of centeratom_left in gro/pdb file: $centeratom1"
