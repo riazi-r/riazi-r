@@ -1,10 +1,23 @@
 set tcl_precision 3
-#mol new boxedsoln.gro
-set left [atomselect top "segid PROA to PROC CARA or index 0 to 5917"]
-set right [atomselect top "segid PROJ to PROL CARB or index 5918 to 11835"]
+set outfile [open solute.info w]
+mol new solute.gro
+mol addfile solute.psf
+
+#if com distance needs to be changed set below if argument from {0} to {1}:
+
+if {0} {
+set left [atomselect top "segid PROA to PROC CARA or serial 1 to 5918 "]
+set right [atomselect top "segid PROJ to PROL CARB or serial 5919 to 11836 "]
 set com [measure center $left weight mass]
 set com2 [measure center $right weight mass]
-
+set dist_init [vecdist $com $com2]
+set goal_init "10.0"
+if {$dist_init != $goal_init} {
+ set dir [vecnorm [vecsub $cm $cm2]]
+ set delta [expr $goal_init-$dist_init]
+ $left moveby [vecscale $delta $dir]
+ }
+ }
 #set index [$a list]
 #for {set i 0} {$i < [llength $index]} {incr i} {
 #get {x y z}
@@ -45,27 +58,31 @@ mol rep VDW 4
 mol addrep top 
 
 set centeratom1 [expr ($centeratom1+1)]
-puts "index of centeratom_left in gro/pdb file: $centeratom1"
+puts $outfile "index of centeratom_left in gro/pdb file: $centeratom1"
 set centeratom2 [expr ($centeratom2+1)]
-puts "index of centeratom_right in gro/pdb file: $centeratom2"
+puts $outfile "index of centeratom_right in gro/pdb file: $centeratom2"
 
 
 set dist [vecdist $com2 $com]
-puts "COM distance: $dist" 
+puts $outfile "COM distance: $dist" 
 set dir [vecnorm [vecsub $com2 $com]]
-puts "direction vector : $dir"
+puts $outfile "direction vector : $dir"
 
 set minmax [measure minmax [atomselect top all]]
 set xbox [expr [lindex [lindex $minmax 1] 0]-[lindex [lindex $minmax 0] 0]]
 set ybox [expr [lindex [lindex $minmax 1] 1]-[lindex [lindex $minmax 0] 1]]
 set zbox [expr [lindex [lindex $minmax 1] 2]-[lindex [lindex $minmax 0] 2]]
-puts "minmax coordinates: $minmax"
-puts "box dimension without padding: X=$xbox Y=$ybox Z=$zbox"
+puts $outfile "minmax coordinates: $minmax"
+puts $outfile "box dimension without padding: X= $xbox Y= $ybox Z= $zbox"
 
 set center [molinfo top get center]
-puts "center coordinates: $center"
+puts $outfile "center coordinates: $center"
+
+close $outfile 
 
 set matrix [transvecinv $dir]
 set all [atomselect top all]
 $all move $matrix
-$all writegro solute-rotate.gro
+$all writegro solute-rotate2.gro
+
+exit
