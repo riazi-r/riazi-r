@@ -2,12 +2,15 @@ set tcl_precision 3
 set outfile [open solute.info w]
 mol new solute.gro
 mol addfile solute.psf
-set left [atomselect top "segid PROA to PROC CARA or serial 1 to 5918 "]
-set right [atomselect top "segid PROJ to PROL CARB or serial 5919 to 11836 "]
+
+set right [atomselect top "segid PROA to PROC CARA or serial 1 to 5918 "]
+set left [atomselect top "segid PROJ to PROL CARB or serial 5919 to 11836 "]
 set com [measure center $left weight mass]
 set com2 [measure center $right weight mass]
 
+
 #in case COM distance of left & right groups needs to be changed, set below if argument from {0} to {1}:
+
 if {0} {
 set dist_init [vecdist $com $com2]
 set goal_init "10.0"
@@ -82,6 +85,6 @@ close $outfile
 set matrix [transvecinv $dir]
 set all [atomselect top all]
 $all move $matrix
-$all writegro solute-rotate2.gro
+$all writegro solute-rotate.gro
 
 exit
