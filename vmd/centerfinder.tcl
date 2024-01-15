@@ -68,7 +68,7 @@ puts $outfile "index of centeratom_right in gro/pdb file: $centeratom2"
 set dist [vecdist $com2 $com]
 puts $outfile "COM distance: $dist" 
 set dir [vecnorm [vecsub $com2 $com]]
-puts $outfile "direction vector : $dir"
+
 
 set minmax [measure minmax [atomselect top all]]
 set xbox [expr [lindex [lindex $minmax 1] 0]-[lindex [lindex $minmax 0] 0]]
@@ -80,11 +80,17 @@ puts $outfile "box dimension without padding: X= $xbox Y= $ybox Z= $zbox"
 set center [molinfo top get center]
 puts $outfile "center coordinates: $center"
 
-close $outfile 
-
 set matrix [transvecinv $dir]
 set all [atomselect top all]
 $all move $matrix
+#new direction vector after rotating solutes to be parallel to x direction
+set com [measure center $left weight mass]
+set com2 [measure center $right weight mass]
+set dir2 [vecnorm [vecsub $com2 $com]]
+puts $outfile "direction vector : $dir2"
+
+
 $all writegro solute-rotate.gro
 
+close $outfile
 exit
