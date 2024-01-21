@@ -15,10 +15,12 @@ animate write pdb combined2.pdb $mol
 }
 if {1} {
 set tcl_precision 2
-mol new solutioncal.psf
-mol addfile solutioncal.pdb
-set sel [atomselect top "segid PROA to PROC CARA BO1 CO1 "]
-set sel2 [atomselect top "segid PROJ to PROL CARB DO1 EO1"]
+mol new step3_input.psf
+mol addfile step3_input.pdb
+set all [atomselect top all]
+$all writegro step3_input_original.gro
+set sel [atomselect top "segid PROA or serial 1 to 5918"]
+set sel2 [atomselect top "segid PROG or serial 5919 to 9140"]
 #$sel2 moveby {0.2 0 0}
 set cm [measure center $sel weight mass]
 set cm2 [measure center $sel2 weight mass]
@@ -36,7 +38,7 @@ if {$dist != $i} {
 
 }
 set all [atomselect top all]
-$all writepdb solutioncal$i.pdb
+$all writegro step3_input.gro
 
  exit
  
