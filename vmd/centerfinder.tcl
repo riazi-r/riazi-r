@@ -1,10 +1,12 @@
 set tcl_precision 3
 set outfile [open solute.info w]
-mol new solute.gro
+global env
+set mol $env(molecule)
+mol new ${mol}.gro
 mol addfile solute.psf
 
-set right [atomselect top "segid PROA to PROC CARA or serial 1 to 5918 "]
-set left [atomselect top "segid PROJ to PROL CARB or serial 5919 to 11836 "]
+set left [atomselect top "segid PROA or serial 1 to 5918 "]
+set right [atomselect top "segid PROG or serial 5919 to 9140 "]
 set com [measure center $left weight mass]
 set com2 [measure center $right weight mass]
 
@@ -80,17 +82,18 @@ puts $outfile "box dimension without padding: X= $xbox Y= $ybox Z= $zbox"
 set center [molinfo top get center]
 puts $outfile "center coordinates: $center"
 
-set matrix [transvecinv $dir]
-set all [atomselect top all]
-$all move $matrix
+#set matrix [transvecinv $dir]
+#set all [atomselect top all]
+#$all move $matrix
+
 #new direction vector after rotating solutes to be parallel to x direction
-set com [measure center $left weight mass]
-set com2 [measure center $right weight mass]
-set dir2 [vecnorm [vecsub $com2 $com]]
-puts $outfile "direction vector : $dir2"
+#set com [measure center $left weight mass]
+#set com2 [measure center $right weight mass]
+#set dir2 [vecnorm [vecsub $com2 $com]]
+#puts $outfile "direction vector : $dir2"
+puts $outfile "direction vector : $dir"
 
-
-$all writegro solute-rotate.gro
+#$all writegro ${mol}-rotate.gro
 
 close $outfile
 exit
