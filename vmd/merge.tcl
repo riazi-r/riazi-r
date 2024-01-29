@@ -19,11 +19,11 @@ mol new step3_input.psf
 mol addfile step3_input.pdb
 set all [atomselect top all]
 $all writegro step3_input_original.gro
-set sel [atomselect top "segid PROA or serial 1 to 5918"]
-set sel2 [atomselect top "segid PROG or serial 5919 to 9140"]
+set left [atomselect top "segid PROA PROB PROC or serial 1 to 2525"]
+set right [atomselect top "segid PROD or serial 2526 to 5747"]
 #$sel2 moveby {0.2 0 0}
-set cm [measure center $sel weight mass]
-set cm2 [measure center $sel2 weight mass]
+set cm [measure center $left weight mass]
+set cm2 [measure center $right weight mass]
 set diff [vecsub $cm $cm2]
 set dist [veclength $diff]
 global env
@@ -33,7 +33,7 @@ if {$dist != $i} {
  set delta [expr $i-$dist]
  set dir [vecnorm $diff]
  #set dir {0 1 0}
- $sel moveby [vecscale $delta $dir]
+ $left moveby [vecscale $delta $dir]
 }
 
 }
