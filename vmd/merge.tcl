@@ -15,8 +15,8 @@ animate write pdb combined2.pdb $mol
 }
 if {1} {
 set tcl_precision 2
-mol new step3_input.psf
-mol addfile step3_input.pdb
+mol new step3_input.pdb
+#mol addfile step3_input.psf
 set all [atomselect top all]
 $all writegro step3_input_original.gro
 set left [atomselect top "segid PROA PROB PROC or serial 1 to 2525"]
