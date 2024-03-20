@@ -1,5 +1,5 @@
-set ref [atomselect 0 "segid PROA to PROC]
-set sel [atomselect 1 "segid PROJ to PROL]
+set ref [atomselect 0 "segid PROA to PROC"]
+set sel [atomselect 1 "segid PROJ to PROL"]
 set matrix [measure fit $sel $ref]
 set all [atomselect 1 all]
 $all move $matrix
