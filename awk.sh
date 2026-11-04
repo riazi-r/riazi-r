@@ -1,3 +1,3 @@
-##how to read & save certain entries from a text log file (ex. pair interactions (pull forces) & distance from namd SMD simulation log file after analysis)
+##how to read & save certain entries from a text log file (ex. pair interactions (pull forces) & distance from namd SMD simulation log file after analysis)##
 
 awk -v keyword="PAIR INTERACTION:" -v divisor=500 -v velocity=0.0005 'index($0, keyword) { time = $4 / divisor; distance = $4 * velocity; force = ($6 + $10);  print time "\t" distance "\t" $6 "\t" $10 "\t" force}' analyz.info > pull.force
